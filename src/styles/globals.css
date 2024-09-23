@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.bg-overlay {
+    background-color: rgba(0,0,0,.3);
+}
+
+/* cart menu */
+.cartMenu::before {
+    content: "";
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 12px solid #ccc;
+    position: absolute;
+    top: -11px;
+    right:8px;
+}
+.cartMenu::after {
+    content: "";
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 12px solid #fff;
+    position: absolute;
+    top: -10px;
+    right:8px;
+}
+#rfs-btn{
+    padding:0;
+    border:none;
+    margin-inline-end:4px;
+    span{
+        margin:0;
+        padding:0;
+    }
+}
+#rfs-btn::after{
+    margin-left:0px;
+    
+    margin-inline-end:4px
+}
+
+.customDropDownMenu svg{
+    /* direction: rtl;
+    transform: rotate(180deg);
+    transform-origin: center;
+    margin-inline-start: 5px;
+    transition: all 0.3s ease-in-out; */
+}
+
+.customDropDownMenu div:hover svg {
+    /* margin-inline-start: 10px; */
+}
+
