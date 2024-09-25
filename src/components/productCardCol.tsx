@@ -1,6 +1,5 @@
 "use client";
 
-import { iProduct } from "@/code/dataModels";
 import { useContext, useState } from "react";
 import { MdAddShoppingCart, MdOutlineMinimize } from "react-icons/md";
 import { GoPlus } from "react-icons/go";
@@ -13,9 +12,8 @@ import { jwtDecode } from "jwt-decode";
 const ProductCardCol = ({
   product,
 }: {
-  product: iProduct;
+  product: any;
 }) => {
-  const { G_productsInCart, setG_ProductsInCart } = useContext(GlobalContext);
   const [counts, setCounts] = useState(0);
   const [activeCart, setActiveCart] = useState(false);
   const [activeHearts, setActiveHearts] = useState(false);
@@ -47,7 +45,7 @@ const ProductCardCol = ({
 
     setIsAddingToWishlist(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites`, {
+      const response = await fetch(`http://alsanidi.metatesting.online/public/api/favorites`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -92,7 +90,7 @@ const ProductCardCol = ({
         return;
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart/items`, {
+      const response = await fetch(`http://alsanidi.metatesting.online/public/api/cart/items`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -140,7 +138,7 @@ const ProductCardCol = ({
         return;
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart/items/${product.id}`, {
+      const response = await fetch(`http://alsanidi.metatesting.online/public/api/cart/items/${product.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

@@ -1,7 +1,7 @@
 
 "use client";
 
-import { iCategory, iProduct } from "@/code/dataModels";
+import { iCategory } from "@/code/dataModels";
 import Pagination from "@/components/pagination";
 import ProductCardCol from "@/components/productCardCol";
 import Link from "next/link";
@@ -15,7 +15,7 @@ export default function Category({ params }: { params: { id: string } }) {
 
 
   const { AllProducts, AllCategories, fetchSubCategoriesProducts } = useContext(GlobalContext);
-  const [products, setProducts] = useState<iProduct[]>([]);
+  const [products, setProducts] = useState<any[]>([]);
   const fetchProducts = async () => {
     const { data } = await fetchSubCategoriesProducts(params.id);
     console.log(data);
@@ -49,7 +49,7 @@ export default function Category({ params }: { params: { id: string } }) {
   const [page, setPage] = useState(1);
 
   // State for storing products to be displayed on the current page
-  const [productList, setProductList] = useState<iProduct[]>([]);
+  const [productList, setProductList] = useState<any[]>([]);
 
   // Filter products based on the current category from the context
   const allProducts = AllProducts?.filter((product) => product.category.id === mainCategory?.id) || [];

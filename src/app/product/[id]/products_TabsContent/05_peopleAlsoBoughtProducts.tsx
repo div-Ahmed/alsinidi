@@ -1,14 +1,13 @@
 "use client";
 
-import { iProduct } from "@/code/dataModels";
 import GlobalContext from "@/code/globalContext";
 // import products from "@/code/products_db";
 import ProductCardCol from "@/components/productCardCol";
 import { useContext } from "react";
 
-export default function PeopleAlsoBought({ product }: { product: iProduct }) {
+export default function PeopleAlsoBought({ product }: { product: any }) {
   const { AllProducts } = useContext(GlobalContext);
-  const allProducts=AllProducts?? []; // Default to an empty array if AllProducts is null or undefined
+  const allProducts = AllProducts ?? []; // Default to an empty array if AllProducts is null or undefined
   const productsList = allProducts.slice(0, 4);
   return (
     <div className="container px-0">

@@ -124,7 +124,7 @@
 // }
 "use client";
 
-import { iCategory, iProduct } from "@/code/dataModels";
+import { iCategory } from "@/code/dataModels";
 import { useContext, useEffect, useState } from "react";
 import ProductCardCol from "@/components/productCardCol";
 import { BsInfoCircle } from "react-icons/bs";
@@ -141,7 +141,7 @@ export default function AllCategories() {
   const [activeSubs, setActiveSubs] = useState<iCategory[]>([]);
 
   // Function to get products of a specific category
-  const getCatProducts = (catId: number): iProduct[] => {
+  const getCatProducts = (catId: number): any[] => {
     if (!AllProducts) return [];
     return AllProducts.filter((product) => product.category.id === catId);
   };

@@ -2,23 +2,24 @@
 
 import GlobalContext from "@/code/globalContext";
 import G from "@/code/globalData";
-import { useSession } from "next-auth/react";
+import { getToken } from "@/lib/auth";
+// import { useSession } from "next-auth/react";
 import { useState, useEffect, useContext } from "react";
 
 export default function GeneralContent() {
   const [currentUser, setCurrentUser] = useState(G.session.user);
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
   const { user, setUser, AllCountries } = useContext(GlobalContext);
   const [userData, setUserData] = useState<{ first_name: string, last_name: string, email: string, country: { name: string, id: string }, phone: string } | null>(null);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
-  const getUser = async () => {
+  const getUser = async (token: string) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/profile`, {
+      const response = await fetch(`http://alsanidi.metatesting.online/public/api/user/profile`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${user.access_token}`
+          'Authorization': `Bearer ${token}`
         },
       });
       if (response.ok) {
@@ -34,18 +35,22 @@ export default function GeneralContent() {
   }
 
   useEffect(() => {
-    getUser();
+    const access_token = getToken();
+    (async () => {
+
+      await getUser(access_token!);
+    })();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const access_token = localStorage.getItem('userToken');
+    const access_token = getToken();
     if (!access_token) {
       setMessage({ type: 'error', text: 'No access token found' });
       return;
     }
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/change-profile`, {
+      const response = await fetch(`http://alsanidi.metatesting.online/public/api/user/change-profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -62,7 +67,7 @@ export default function GeneralContent() {
 
       if (response.ok) {
         setMessage({ type: 'success', text: 'Profile updated successfully' });
-        getUser(); // Refresh user data
+        getUser(access_token); // Refresh user data
       } else {
         throw new Error('Failed to update profile');
       }
@@ -76,7 +81,7 @@ export default function GeneralContent() {
   return (
     <div className="container px-0">
       <h2 className="text-2xl text-blackText font-bold mb-1">
-        {session?.user?.name}
+        {/* {session?.user?.name} */}
       </h2>
       <span className="text-captionColor text-sm">
         Customer since {currentUser.createdAt}

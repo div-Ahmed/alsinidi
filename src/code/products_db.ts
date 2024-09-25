@@ -1,27 +1,27 @@
-import { iProduct } from "./dataModels";
+// import { iProduct } from "./dataModels";
 
-const products: iProduct[] = [
+const products: any[] = [
   {
     "id": 1,
     "name": "Product 1",
     "price": 150.99,
     "discountPrice": 100.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/red/white"
+        "image_path": "https://placehold.co/100/red/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/blue/white"
+        "image_path": "https://placehold.co/100/blue/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/green/white"
+        "image_path": "https://placehold.co/100/green/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/yellow/white"
+        "image_path": "https://placehold.co/100/yellow/white"
       }
     ],
     "description": "Description of product 1",
@@ -30,7 +30,6 @@ const products: iProduct[] = [
     "categoryId": 2,
     "rating": 4.5,
     "matrial": "Material 1",
-    "color": "Red",
     "size": "M",
     "SKU": "SKU001",
     "reviews": [
@@ -61,22 +60,22 @@ const products: iProduct[] = [
     "name": "Product 2",
     "price": 20.99,
     "discountPrice": 15.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/orange/white"
+        "image_path": "https://placehold.co/100/orange/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/purple/white"
+        "image_path": "https://placehold.co/100/purple/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/pink/white"
+        "image_path": "https://placehold.co/100/pink/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/brown/white"
+        "image_path": "https://placehold.co/100/brown/white"
       }
     ],
     "description": "Description of product 2",
@@ -85,7 +84,6 @@ const products: iProduct[] = [
     "categoryId": 2,
     "rating": 4,
     "matrial": "Material 2",
-    "color": "Blue",
     "size": "L",
     "SKU": "SKU002",
     "reviews": [
@@ -109,31 +107,31 @@ const products: iProduct[] = [
     "name": "Product 3",
     "price": 25.99,
     "discountPrice": 0,
-    "imagesUrl": [
+    "images": [
       {
-        "id": 1,
-        "url": "https://placehold.co/100/gray/white"
+          "id": 1,
+          "image_path": "https://placehold.co/100/gray/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/black/white"
+        "image_path": "https://placehold.co/100/black/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/teal/white"
+        "image_path": "https://placehold.co/100/teal/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/maroon/white"
+        "image_path": "https://placehold.co/100/maroon/white"
       }
     ],
     "description": "Description of product 3",
     "model": "Model 3",
     "stock": 0,
-    "categoryId": 2,
+
+    "category_id": 2,
     "rating": 4.8,
     "matrial": "Material 3",
-    "color": "Green",
     "size": "S",
     "SKU": "SKU003",
     "reviews": [
@@ -157,22 +155,22 @@ const products: iProduct[] = [
     "name": "Product 4",
     "price": 30.99,
     "discountPrice": 25.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/cyan/white"
+        "image_path": "https://placehold.co/100/cyan/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/magenta/white"
+        "image_path": "https://placehold.co/100/magenta/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/navy/white"
+        "image_path": "https://placehold.co/100/navy/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/gold/white"
+        "image_path": "https://placehold.co/100/gold/white"
       }
     ],
     "description": "Description of product 4",
@@ -181,7 +179,6 @@ const products: iProduct[] = [
     "categoryId": 3,
     "rating": 3.5,
     "matrial": "Material 4",
-    "color": "Yellow",
     "size": "XL",
     "SKU": "SKU004",
     "reviews": [
@@ -205,22 +202,22 @@ const products: iProduct[] = [
     "name": "Product 5",
     "price": 35.99,
     "discountPrice": 30.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/silver/white"
+        "image_path": "https://placehold.co/100/silver/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/lime/white"
+        "image_path": "https://placehold.co/100/lime/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/olive/white"
+        "image_path": "https://placehold.co/100/olive/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/fuchsia/white"
+        "image_path": "https://placehold.co/100/fuchsia/white"
       }
     ],
     "description": "Description of product 5",
@@ -229,7 +226,6 @@ const products: iProduct[] = [
     "categoryId": 2,
     "rating": 4.2,
     "matrial": "Material 5",
-    "color": "Purple",
     "size": "XXL",
     "SKU": "SKU005",
     "reviews": [
@@ -253,22 +249,22 @@ const products: iProduct[] = [
     "name": "Product 6",
     "price": 40.99,
     "discountPrice": 35.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/peach/white"
+        "image_path": "https://placehold.co/100/peach/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/indigo/white"
+        "image_path": "https://placehold.co/100/indigo/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/turquoise/white"
+        "image_path": "https://placehold.co/100/turquoise/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/violet/white"
+        "image_path": "https://placehold.co/100/violet/white"
       }
     ],
     "description": "Description of product 6",
@@ -277,7 +273,6 @@ const products: iProduct[] = [
     "categoryId": 2,
     "rating": 4.7,
     "matrial": "Material 6",
-    "color": "Orange",
     "size": "XXXL",
     "SKU": "SKU006",
     "reviews": [
@@ -301,22 +296,22 @@ const products: iProduct[] = [
     "name": "Product 7",
     "price": 45.99,
     "discountPrice": 40.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/amber/white"
+        "image_path": "https://placehold.co/100/amber/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/salmon/white"
+        "image_path": "https://placehold.co/100/salmon/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/coral/white"
+        "image_path": "https://placehold.co/100/coral/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/lavender/white"
+        "image_path": "https://placehold.co/100/lavender/white"
       }
     ],
     "description": "Description of product 7",
@@ -325,7 +320,6 @@ const products: iProduct[] = [
     "categoryId": 2,
     "rating": 4.3,
     "matrial": "Material 7",
-    "color": "Pink",
     "size": "S",
     "SKU": "SKU007",
     "reviews": [
@@ -349,22 +343,22 @@ const products: iProduct[] = [
     "name": "Product 8",
     "price": 50.99,
     "discountPrice": 45.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/chartreuse/white"
+        "image_path": "https://placehold.co/100/chartreuse/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/mint/white"
+        "image_path": "https://placehold.co/100/mint/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/khaki/white"
+        "image_path": "https://placehold.co/100/khaki/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/periwinkle/white"
+        "image_path": "https://placehold.co/100/periwinkle/white"
       }
     ],
     "description": "Description of product 8",
@@ -373,7 +367,6 @@ const products: iProduct[] = [
     "categoryId": 2,
     "rating": 4.1,
     "matrial": "Material 8",
-    "color": "Brown",
     "size": "M",
     "SKU": "SKU008",
     "reviews": [
@@ -397,22 +390,22 @@ const products: iProduct[] = [
     "name": "Product 9",
     "price": 55.99,
     "discountPrice": 50.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/emerald/white"
+        "image_path": "https://placehold.co/100/emerald/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/cerulean/white"
+        "image_path": "https://placehold.co/100/cerulean/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/sapphire/white"
+        "image_path": "https://placehold.co/100/sapphire/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/jade/white"
+        "image_path": "https://placehold.co/100/jade/white"
       }
     ],
     "description": "Description of product 9",
@@ -421,7 +414,6 @@ const products: iProduct[] = [
     "categoryId": 2,
     "rating": 3.8,
     "matrial": "Material 9",
-    "color": "Black",
     "size": "L",
     "SKU": "SKU009",
     "reviews": [
@@ -445,22 +437,22 @@ const products: iProduct[] = [
     "name": "Product 10",
     "price": 60.99,
     "discountPrice": 55.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/cream/white"
+        "image_path": "https://placehold.co/100/cream/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/beige/white"
+        "image_path": "https://placehold.co/100/beige/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/tan/white"
+        "image_path": "https://placehold.co/100/tan/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/bronze/white"
+        "image_path": "https://placehold.co/100/bronze/white"
       }
     ],
     "description": "Description of product 10",
@@ -469,7 +461,6 @@ const products: iProduct[] = [
     "categoryId": 13,
     "rating": 4.6,
     "matrial": "Material 10",
-    "color": "White",
     "size": "XL",
     "SKU": "SKU010",
     "reviews": [
@@ -493,22 +484,22 @@ const products: iProduct[] = [
     "name": "Product 11",
     "price": 15.99,
     "discountPrice": 10.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/red/white"
+        "image_path": "https://placehold.co/100/red/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/blue/white"
+        "image_path": "https://placehold.co/100/blue/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/green/white"
+        "image_path": "https://placehold.co/100/green/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/yellow/white"
+        "image_path": "https://placehold.co/100/yellow/white"
       }
     ],
     "description": "Description of product 11",
@@ -517,7 +508,6 @@ const products: iProduct[] = [
     "categoryId": 2,
     "rating": 4.5,
     "matrial": "Material 11",
-    "color": "Red",
     "size": "M",
     "SKU": "SKU011",
     "reviews": [
@@ -548,22 +538,22 @@ const products: iProduct[] = [
     "name": "Product 12",
     "price": 20.99,
     "discountPrice": 15.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/orange/white"
+        "image_path": "https://placehold.co/100/orange/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/purple/white"
+        "image_path": "https://placehold.co/100/purple/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/pink/white"
+        "image_path": "https://placehold.co/100/pink/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/brown/white"
+        "image_path": "https://placehold.co/100/brown/white"
       }
     ],
     "description": "Description of product 12",
@@ -572,7 +562,6 @@ const products: iProduct[] = [
     "categoryId": 2,
     "rating": 4,
     "matrial": "Material 12",
-    "color": "Blue",
     "size": "L",
     "SKU": "SKU012",
     "reviews": [
@@ -596,22 +585,22 @@ const products: iProduct[] = [
     "name": "Product 13",
     "price": 25.99,
     "discountPrice": 0,
-    "imagesUrl": [
+    "images": [
       {
-        "id": 1,
-        "url": "https://placehold.co/100/gray/white"
+        
+        
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/black/white"
+        "image_path": "https://placehold.co/100/black/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/teal/white"
+        "image_path": "https://placehold.co/100/teal/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/maroon/white"
+        "image_path": "https://placehold.co/100/maroon/white"
       }
     ],
     "description": "Description of product 13",
@@ -620,7 +609,6 @@ const products: iProduct[] = [
     "categoryId": 2,
     "rating": 4.8,
     "matrial": "Material 13",
-    "color": "Green",
     "size": "S",
     "SKU": "SKU013",
     "reviews": [
@@ -644,22 +632,22 @@ const products: iProduct[] = [
     "name": "Product 14",
     "price": 30.99,
     "discountPrice": 25.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/cyan/white"
+        "image_path": "https://placehold.co/100/cyan/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/magenta/white"
+        "image_path": "https://placehold.co/100/magenta/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/navy/white"
+        "image_path": "https://placehold.co/100/navy/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/gold/white"
+        "image_path": "https://placehold.co/100/gold/white"
       }
     ],
     "description": "Description of product 14",
@@ -668,7 +656,6 @@ const products: iProduct[] = [
     "categoryId": 3,
     "rating": 3.5,
     "matrial": "Material 14",
-    "color": "Yellow",
     "size": "XL",
     "SKU": "SKU014",
     "reviews": [
@@ -692,22 +679,22 @@ const products: iProduct[] = [
     "name": "Product 15",
     "price": 35.99,
     "discountPrice": 30.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/silver/white"
+        "image_path": "https://placehold.co/100/silver/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/lime/white"
+        "image_path": "https://placehold.co/100/lime/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/olive/white"
+        "image_path": "https://placehold.co/100/olive/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/fuchsia/white"
+        "image_path": "https://placehold.co/100/fuchsia/white"
       }
     ],
     "description": "Description of product 15",
@@ -716,7 +703,6 @@ const products: iProduct[] = [
     "categoryId": 2,
     "rating": 4.2,
     "matrial": "Material 15",
-    "color": "Purple",
     "size": "XXL",
     "SKU": "SKU015",
     "reviews": [
@@ -740,22 +726,22 @@ const products: iProduct[] = [
     "name": "Product 16",
     "price": 40.99,
     "discountPrice": 35.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/peach/white"
+        "image_path": "https://placehold.co/100/peach/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/indigo/white"
+        "image_path": "https://placehold.co/100/indigo/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/turquoise/white"
+        "image_path": "https://placehold.co/100/turquoise/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/violet/white"
+        "image_path": "https://placehold.co/100/violet/white"
       }
     ],
     "description": "Description of product 16",
@@ -764,7 +750,6 @@ const products: iProduct[] = [
     "categoryId": 2,
     "rating": 4.7,
     "matrial": "Material 16",
-    "color": "Orange",
     "size": "XXXL",
     "SKU": "SKU016",
     "reviews": [
@@ -788,22 +773,22 @@ const products: iProduct[] = [
     "name": "Product 17",
     "price": 45.99,
     "discountPrice": 40.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/amber/white"
+        "image_path": "https://placehold.co/100/amber/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/salmon/white"
+        "image_path": "https://placehold.co/100/salmon/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/coral/white"
+        "image_path": "https://placehold.co/100/coral/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/lavender/white"
+        "image_path": "https://placehold.co/100/lavender/white"
       }
     ],
     "description": "Description of product 17",
@@ -812,7 +797,6 @@ const products: iProduct[] = [
     "categoryId": 2,
     "rating": 4.3,
     "matrial": "Material 17",
-    "color": "Pink",
     "size": "S",
     "SKU": "SKU017",
     "reviews": [
@@ -836,22 +820,22 @@ const products: iProduct[] = [
     "name": "Product 18",
     "price": 50.99,
     "discountPrice": 45.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/chartreuse/white"
+        "image_path": "https://placehold.co/100/chartreuse/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/mint/white"
+        "image_path": "https://placehold.co/100/mint/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/khaki/white"
+        "image_path": "https://placehold.co/100/khaki/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/periwinkle/white"
+        "image_path": "https://placehold.co/100/periwinkle/white"
       }
     ],
     "description": "Description of product 18",
@@ -860,7 +844,6 @@ const products: iProduct[] = [
     "categoryId": 2,
     "rating": 4.1,
     "matrial": "Material 18",
-    "color": "Brown",
     "size": "M",
     "SKU": "SKU018",
     "reviews": [
@@ -884,22 +867,22 @@ const products: iProduct[] = [
     "name": "Product 19",
     "price": 55.99,
     "discountPrice": 50.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/emerald/white"
+        "image_path": "https://placehold.co/100/emerald/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/cerulean/white"
+        "image_path": "https://placehold.co/100/cerulean/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/sapphire/white"
+        "image_path": "https://placehold.co/100/sapphire/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/jade/white"
+        "image_path": "https://placehold.co/100/jade/white"
       }
     ],
     "description": "Description of product 19",
@@ -908,7 +891,6 @@ const products: iProduct[] = [
     "categoryId": 13,
     "rating": 3.8,
     "matrial": "Material 19",
-    "color": "Black",
     "size": "L",
     "SKU": "SKU019",
     "reviews": [
@@ -932,22 +914,22 @@ const products: iProduct[] = [
     "name": "Product 20",
     "price": 60.99,
     "discountPrice": 55.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/cream/white"
+        "image_path": "https://placehold.co/100/cream/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/beige/white"
+        "image_path": "https://placehold.co/100/beige/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/tan/white"
+        "image_path": "https://placehold.co/100/tan/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/bronze/white"
+        "image_path": "https://placehold.co/100/bronze/white"
       }
     ],
     "description": "Description of product 20",
@@ -956,7 +938,6 @@ const products: iProduct[] = [
     "categoryId": 13,
     "rating": 4.6,
     "matrial": "Material 20",
-    "color": "White",
     "size": "XL",
     "SKU": "SKU020",
     "reviews": [
@@ -980,22 +961,22 @@ const products: iProduct[] = [
     "name": "Product 21",
     "price": 65.99,
     "discountPrice": 60.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/aliceblue/white"
+        "image_path": "https://placehold.co/100/aliceblue/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/antiquewhite/white"
+        "image_path": "https://placehold.co/100/antiquewhite/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/aqua/white"
+        "image_path": "https://placehold.co/100/aqua/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/aquamarine/white"
+        "image_path": "https://placehold.co/100/aquamarine/white"
       }
     ],
     "description": "Description of product 21",
@@ -1004,7 +985,6 @@ const products: iProduct[] = [
     "categoryId": 13,
     "rating": 4.7,
     "matrial": "Material 21",
-    "color": "Blue",
     "size": "XXL",
     "SKU": "SKU021",
     "reviews": [
@@ -1028,22 +1008,22 @@ const products: iProduct[] = [
     "name": "Product 22",
     "price": 70.99,
     "discountPrice": 65.99,
-    "imagesUrl": [
+    "images": [
       {
         "id": 1,
-        "url": "https://placehold.co/100/azure/white"
+        "image_path": "https://placehold.co/100/azure/white"
       },
       {
         "id": 2,
-        "url": "https://placehold.co/100/beige/white"
+        "image_path": "https://placehold.co/100/beige/white"
       },
       {
         "id": 3,
-        "url": "https://placehold.co/100/blue/white"
+        "image_path": "https://placehold.co/100/blue/white"
       },
       {
         "id": 4,
-        "url": "https://placehold.co/100/blueviolet/white"
+        "image_path": "https://placehold.co/100/blueviolet/white"
       }
     ],
     "description": "Description of product 22",
@@ -1052,7 +1032,6 @@ const products: iProduct[] = [
     "categoryId": 13,
     "rating": 4.9,
     "matrial": "Material 22",
-    "color": "Green",
     "size": "L",
     "SKU": "SKU022",
     "reviews": [

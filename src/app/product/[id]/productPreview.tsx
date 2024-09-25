@@ -205,7 +205,6 @@
 // }
 "use client";
 
-import { iProduct } from "@/code/dataModels";
 import { useState } from "react";
 import {
   BiLogoFacebook,
@@ -222,9 +221,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { BsArrowLeftRight } from "react-icons/bs";
 
-export default function ProductPreview({ product }: { product: iProduct }) {
+export default function ProductPreview({ product }: { product: any }) {
   // Mapping imagesUrl to match the format from iProduct's images
-  const imagesUrl = product.images.map((img) => ({ id: img.id, url: img.image_path }));
+  const imagesUrl = product.images.map((img: any) => ({ id: img.id, url: img.image_path }));
 
   const [activeImg, setActiveImg] = useState(imagesUrl[0]);
   return (
@@ -241,13 +240,12 @@ export default function ProductPreview({ product }: { product: iProduct }) {
           />
         </div>
         <div className="product-imgs text-center flex mt-3 justify-between">
-          {imagesUrl.map((item, index) => (
+          {imagesUrl.map((item: any, index: number) => (
             <div
               key={index}
               onClick={() => setActiveImg(item)}
-              className={`border rounded-lg p-3 cursor-pointer ${
-                activeImg.id === item.id ? "border-primary" : ""
-              }`}
+              className={`border rounded-lg p-3 cursor-pointer ${activeImg.id === item.id ? "border-primary" : ""
+                }`}
             >
               <Image
                 loader={() => item.url}
@@ -280,11 +278,10 @@ export default function ProductPreview({ product }: { product: iProduct }) {
               {[1, 2, 3, 4, 5].map((item, index) => (
                 <BiSolidStar
                   key={index}
-                  className={`${
-                    product.rating >= item
-                      ? "text-yellow-400"
-                      : "text-graySubText"
-                  } text-lg`}
+                  className={`${product.rating >= item
+                    ? "text-yellow-400"
+                    : "text-graySubText"
+                    } text-lg`}
                 />
               ))}
             </div>
@@ -292,8 +289,8 @@ export default function ProductPreview({ product }: { product: iProduct }) {
               {product.reviews.length} Review
             </span> */}
             <span className="text-sm text-captionColor mx-3 font-medium underline">
-  {product.reviews ? product.reviews.length : 0} Review
-</span>
+              {product.reviews ? product.reviews.length : 0} Review
+            </span>
           </div>
         </div>
         {/* Interest-free payments tabby image */}

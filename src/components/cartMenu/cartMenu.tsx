@@ -4,7 +4,6 @@ import { useContext, useEffect, useState } from "react";
 import CartMenuItem from "./cartMenuItem";
 import { iProductInCart } from "@/code/dataModels";
 import GlobalContext from "@/code/globalContext";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function CartMenu() {

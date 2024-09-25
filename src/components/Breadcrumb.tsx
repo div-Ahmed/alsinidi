@@ -38,7 +38,7 @@ const Breadcrumb = () => {
     }
   };
 
-  const pathnames = pathname.split('/').filter((x) => x);
+  const pathnames = pathname?.split('/').filter((x) => x);
 
   return (
     <div className="breadcrumb bg-[#ECECEC]">
@@ -49,7 +49,7 @@ const Breadcrumb = () => {
             <li className='mx-3 text-graySubText'>
               <Link href="/">Home | </Link>
             </li>
-            {pathnames.map((value, index) => {
+            {pathnames?.map((value, index) => {
               const href = `/${pathnames.slice(0, index + 1).join('/')}`;
               const isLast = index === pathnames.length - 1;
               const name = getPageName(href);

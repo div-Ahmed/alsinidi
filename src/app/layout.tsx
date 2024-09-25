@@ -22,12 +22,12 @@ export default function RootLayout({
     <GlobalContextProvider >
 
       <LayoutContainer>
-        <SessionWrapper>
+        {/* <SessionWrapper> */}
 
-          {children}
+        {children}
 
 
-        </SessionWrapper>
+        {/* </SessionWrapper> */}
       </LayoutContainer>
     </GlobalContextProvider>
   );

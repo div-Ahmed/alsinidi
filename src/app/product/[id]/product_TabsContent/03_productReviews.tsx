@@ -1,10 +1,10 @@
 "use client";
 
-import { iProduct, iUserAddress } from "@/code/dataModels";
+import { iUserAddress } from "@/code/dataModels";
 import { useState, useEffect } from "react";
 import { BiPlus, BiSolidPencil, BiSolidTrash } from "react-icons/bi";
 
-export default function ProductPreview({ product }: { product: iProduct }) {
+export default function ProductPreview({ product }: { product: any }) {
   const [userAddresses, setUserAddresses] = useState<iUserAddress[]>([]);
   useEffect(() => {
   }, []);
@@ -13,7 +13,7 @@ export default function ProductPreview({ product }: { product: iProduct }) {
     <div className="container px-0">
       {/* loop over addresses and display them in cards */}
       {product.reviews.length ? (
-        product.reviews.map((review, i) => (
+        product.reviews.map((review: any, i: any) => (
           <div key={i} className="border-b pb-3 mb-3">
             <div className="flex flex-wrap justify-center lg:justify-between align-center">
               <h3 className="font-medium text-blackText text-xl mb-3">
@@ -49,13 +49,13 @@ export default function ProductPreview({ product }: { product: iProduct }) {
           </div>
         </div>
         <textarea
-            id="about"
-            name="about"
-            rows={3}
-            className="block w-full rounded-md border-0 mt-3 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-            defaultValue={""}
-            placeholder="Comment"
-          />
+          id="about"
+          name="about"
+          rows={3}
+          className="block w-full rounded-md border-0 mt-3 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+          defaultValue={""}
+          placeholder="Comment"
+        />
       </div>
       <div className="flex justify-center lg:justify-end mt-3">
         <button

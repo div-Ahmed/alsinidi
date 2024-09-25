@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import GlobalContext from "@/code/globalContext";
+import { getToken } from "@/lib/auth";
 
 const passwordSchema = z.object({
   current_password: z.string().min(1, "Current password is required"),
@@ -28,11 +29,12 @@ export default function PasswordContent() {
 
   const onSubmit = async (data: PasswordFormData) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/change-password`, {
+      const access_token = getToken();
+      const response = await fetch(`http://alsanidi.metatesting.online/public/api/user/change-password`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${user.access_token}`
+          'Authorization': `Bearer ${access_token}`
         },
         body: JSON.stringify({
           current_password: data.current_password,

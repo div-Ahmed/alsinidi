@@ -1,16 +1,20 @@
 'use client'
-import signGoogle from "/public/assets/signGoogle.png";
-import Image from "next/image";
+
 import Link from "next/link";
 import { PiEye, PiEyeClosed } from "react-icons/pi";
-import { useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import SignInUpSide from "@/components/sign_in_up_side";
-import { signIn } from 'next-auth/react';
+// import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import GlobalContext from "@/code/globalContext";
+import { unstable_noStore as noStore } from 'next/cache';
+// import GlobalContext from "@/code/globalContext";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+import { setToken, getToken, isAuthenticated, isTokenValid } from "@/lib/auth";
+// import Cookies from 'js-cookie';
 
 const signInSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -21,75 +25,74 @@ const signInSchema = z.object({
 type SignInFormData = z.infer<typeof signInSchema>;
 
 export default function SignIn() {
+  noStore();
   const [showPassword, setShowPassword] = useState(false);
-  const { setUser } = useContext(GlobalContext);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const returnUrl = searchParams?.get('returnUrl') || '/';
 
-  const { register, handleSubmit, formState: { errors } } = useForm<SignInFormData>({
+  const [isLoading, setIsLoading] = useState(false);
+
+
+  const { register, handleSubmit, formState: { errors }, setError } = useForm<SignInFormData>({
     resolver: zodResolver(signInSchema)
   });
 
   const onSubmit = async (data: SignInFormData) => {
     try {
-      const response = await fetch('https://alsanidi.metatesting.online/public/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: data.email,
-          password: data.password,
-        }),
+      setIsLoading(true);
+
+      // Send login request to the API
+      const response = await axios.post('http://alsanidi.metatesting.online/public/api/auth/login', {
+        email: data.email,
+        password: data.password,
       });
 
-      if (response.ok) {
-        const userData = await response.json();
-        // Store the token in local storage
-        if (userData.access_token) {
-          localStorage.setItem('userToken', userData.access_token);
-          console.log('Token stored in local storage');
-        }
-        setUser(userData);
-        // For this example, we'll use NextAuth's signIn method
-        const result = await signIn('credentials', {
-          redirect: false,
-          email: data.email,
-          password: data.password,
-        });
 
-        if (result?.error) {
-          console.error(result.error);
+
+      if (response.status === 200) {
+        const userData = response.data;
+        toast.success('Login successful');
+
+        // Set the token
+        setToken(userData.access_token);
+        // Check if the token is set successfully
+        if (getToken() === userData.access_token) {
+
+          // TODO: redirect to the redirect URL or home page
+          router.replace(searchParams?.get('redirect') || '/');
         } else {
-          router.push(returnUrl);
+          console.error('Token was not set successfully');
+          toast.error('Failed to set token. Please try again.');
         }
       } else {
-        const errorData = await response.json();
-        console.error('Login failed:', errorData);
-        // Handle login errors (e.g., display error messages)
+        console.error('Login failed:', response.data);
+        toast.error('Login failed. Please try again.');
       }
-
-    } catch (error) {
-      console.error('An error occurred during login:', error);
+    } catch (error: any) {
+      if (error.response?.data?.data) {
+        Object.entries(error.response.data.data).forEach(([field, messages]) => {
+          if (Array.isArray(messages) && messages.length > 0) {
+            setError(field as keyof SignInFormData, { message: messages[0] });
+          }
+        });
+      } else {
+        toast.error('Email or password is incorrect');
+      }
+    } finally {
+      setIsLoading(false); // Ensure loading state is reset in both success and error cases
     }
   };
-
-  const handleGoogleSignIn = async () => {
-    const result = await signIn('google', {
-      redirect: false,
-      callbackUrl: returnUrl
-    });
-
-    if (result?.error) {
-      console.error(result.error);
-    } else if (result?.url) {
-      router.push(result.url);
+  useEffect(() => {
+    const token = getToken();
+    if (token) {
+      router.push('/' || '/'); // Proceed to profile
+    } else {
+      router.push(`/sign-in` || '/'); // Redirect to sign-in
     }
-  };
-
+  }, [router, searchParams?.get('redirect')]);
   return (
     <main dir="ltr">
+      <Toaster position="top-center" reverseOrder={false} toastOptions={{ duration: 2000 }} />
       <div className="flex flex-wrap">
         <div className="lg:basis-1/2 basis-full bg-bgBrimary lg:min-h-screen">
           <SignInUpSide>
@@ -156,6 +159,7 @@ export default function SignIn() {
                 </div>
                 <div className="text-center">
                   <button
+                    disabled={isLoading}
                     type="submit"
                     className="block w-full text-white bg-primary rounded-md px-3 py-2"
                   >

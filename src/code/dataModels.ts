@@ -49,6 +49,7 @@ export interface iProduct {
   discountPrice?: number;
   currency: string;
   description: string;
+  category_id: number;
   model: string;
   rating: number;  // Add rating property
   reviews: iReview[];  // Add reviews property

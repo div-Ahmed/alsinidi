@@ -21,7 +21,6 @@ import { Pagination, Navigation } from 'swiper/modules';
 import { FaArrowRight } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
 import ProductCardCol from "./productCardCol";
-import { iProduct } from "@/code/dataModels";
 import GlobalContext from "@/code/globalContext";
 
 const ProductsHome = [
@@ -162,7 +161,7 @@ const ProductHome = ({ titleProductCategory, swiperNum }: IProductHome) => {
   };
   const [homeProducts, setHomeProducts] = useState<any[any] | null>(null);
   const getHomeProducts = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/home`, {
+    const res = await fetch(`http://alsanidi.metatesting.online/public/api/page/home`, {
       headers: {
         "X-LOCALE": "en"
       }
@@ -216,10 +215,10 @@ const ProductHome = ({ titleProductCategory, swiperNum }: IProductHome) => {
         >
 
 
-          {homeProducts && homeProducts?.category_product?.map((prod: { products: iProduct[] }, indx: number) => {
+          {homeProducts && homeProducts?.category_product?.map((prod: { products: any[] }, indx: number) => {
             return (
 
-              prod.products.map((product: iProduct, index: number) => (
+              prod.products.map((product: any, index: number) => (
                 <SwiperSlide
                   key={index}
                   className="p-1"

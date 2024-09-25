@@ -1,11 +1,10 @@
-import { iProduct } from "@/code/dataModels";
 import { ReactNode } from "react";
 import Image from "next/image";
 const ProductCard = ({
   product,
   children,
 }: {
-  product: iProduct;
+  product: any;
   children?: ReactNode;
 }) => {
 

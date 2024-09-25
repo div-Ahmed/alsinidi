@@ -30,7 +30,7 @@ export default function LayoutContainer({
       </head>
       <body className={inter.className}>
         {
-          !G.standAlonePages.includes(path) && (
+          !G.standAlonePages.includes(path!) && (
             <nav>
               <Navbar />
               <AppBar />
@@ -61,7 +61,7 @@ export default function LayoutContainer({
           </div>
         </main>
         {
-          !G.standAlonePages.includes(path) && (
+          !G.standAlonePages.includes(path!) && (
             <Footer />
           )
         }

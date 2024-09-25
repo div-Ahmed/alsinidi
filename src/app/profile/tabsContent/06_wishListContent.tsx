@@ -1,15 +1,13 @@
 "use client";
 
-import { iProduct } from "@/code/dataModels";
 import { useState, useEffect, useContext } from "react";
 import ProductCard from "@/components/productCard";
 import { BiShoppingBag, BiSolidTrash } from "react-icons/bi";
-import products from "@/code/products_db";
 import GlobalContext from "@/code/globalContext";
 export default function WishListContent() {
   const { AllProducts } = useContext(GlobalContext);
-  const allProducts=AllProducts?? []; // Default to an empty array if AllProducts is null or undefined
-  const [productsList, setProductsList] = useState<iProduct[]>([]);
+  const allProducts = AllProducts ?? []; // Default to an empty array if AllProducts is null or undefined
+  const [productsList, setProductsList] = useState<any[]>([]);
 
   useEffect(() => {
     setProductsList(allProducts.slice(0, 2));

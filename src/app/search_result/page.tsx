@@ -1,7 +1,5 @@
 "use client";
-import { iProduct } from "@/code/dataModels";
 import GlobalContext from "@/code/globalContext";
-import products from "@/code/products_db";
 import Pagination from "@/components/pagination";
 import ProductCardCol from "@/components/productCardCol";
 import Link from "next/link";
@@ -11,9 +9,9 @@ import { FiFilter } from "react-icons/fi";
 import { IoMdArrowDropdown } from "react-icons/io";
 export default function SearchResult() {
   const { AllProducts } = useContext(GlobalContext);
-  const allProducts=AllProducts?? []; // Default to an empty array if AllProducts is null or undefined
+  const allProducts = AllProducts ?? []; // Default to an empty array if AllProducts is null or undefined
   // State for storing products to be displayed on the current page
-  const [productList, setProductList] = useState<iProduct[]>([]);
+  const [productList, setProductList] = useState<any[]>([]);
   // State for managing pagination
   const [page, setPage] = useState(1);
   const [itemsPerPages, setItemsPerPages] = useState(20);
@@ -21,7 +19,7 @@ export default function SearchResult() {
   // Update the product list whenever the page changes
   useEffect(() => {
     setProductList(allProducts.slice((page - 1) * itemsPerPages, page * itemsPerPages));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemsPerPages, page]);
 
   const handleDropdownClick = () => {
@@ -107,15 +105,13 @@ export default function SearchResult() {
                 className="flex items-center text-primary text-sm xl:text-base font-medium"
               >
                 <IoMdArrowDropdown
-                  className={`ml-1 transform transition-transform text-2xl  ${
-                    dropdownOpenCity ? "rotate-180" : "rotate-0"
-                  }`}
+                  className={`ml-1 transform transition-transform text-2xl  ${dropdownOpenCity ? "rotate-180" : "rotate-0"
+                    }`}
                 />
               </button>
               <ul
-                className={`absolute left-[-95px] top-[23px] mt-2 w-full md:w-72 h-44 z-50 overflow-auto bg-white text-graySubText shadow-lg rounded-md py-2 ${
-                  dropdownOpenCity ? "block" : "hidden"
-                }`}
+                className={`absolute left-[-95px] top-[23px] mt-2 w-full md:w-72 h-44 z-50 overflow-auto bg-white text-graySubText shadow-lg rounded-md py-2 ${dropdownOpenCity ? "block" : "hidden"
+                  }`}
                 style={{ scrollbarWidth: "thin", scrollbarColor: "#138AA8" }}
               >
                 <li
@@ -155,15 +151,13 @@ export default function SearchResult() {
                 className="flex items-center text-primary text-sm xl:text-base font-medium"
               >
                 <IoMdArrowDropdown
-                  className={`ml-1 transform transition-transform text-2xl  ${
-                    dropdownOpenDistrict ? "rotate-180" : "rotate-0"
-                  }`}
+                  className={`ml-1 transform transition-transform text-2xl  ${dropdownOpenDistrict ? "rotate-180" : "rotate-0"
+                    }`}
                 />
               </button>
               <ul
-                className={`absolute left-[-144px] top-[23px] mt-2 w-full md:w-72 h-44 z-50 overflow-auto bg-white text-graySubText shadow-lg rounded-md py-2 ${
-                  dropdownOpenDistrict ? "block" : "hidden"
-                }`}
+                className={`absolute left-[-144px] top-[23px] mt-2 w-full md:w-72 h-44 z-50 overflow-auto bg-white text-graySubText shadow-lg rounded-md py-2 ${dropdownOpenDistrict ? "block" : "hidden"
+                  }`}
                 style={{ scrollbarWidth: "thin", scrollbarColor: "#138AA8" }}
               >
                 <li
@@ -233,36 +227,36 @@ export default function SearchResult() {
       <div className="block md:flex justify-between mb-12">
         <h2 className="text-2xl mb-3 text-blackText font-bold">
           <FiFilter className="inline text-xl" />
-          <span className="mx-1">Result</span> 
+          <span className="mx-1">Result</span>
         </h2>
         <div className="grid grid-cols-2 lg:grid-cols-2 gap-4">
-            <div className="border rounded-md grid grid-cols-2 gap-1 px-1 items-center text-sm">
-                <span className="font-medium">Sort By:</span>
-                <select
-                id="sortBy"
-                name="sortBy"
-                className="bg-transparent rounded-md border-0 py-0 px-3 text-gray-900 placeholder:text-gray-400"
-                >
-                    <option>Name a - z</option>
-                </select>
-            </div>
-            <div className="border rounded-md grid grid-cols-2 gap-1 px-1 items-center text-sm">
-                <span className="font-medium">Show:</span>
-                <select
-                id="pages"
-                name="pages"
-                className="bg-transparent rounded-md border-0 py-0 px-3 text-gray-900 placeholder:text-gray-400"
-                onChange={(e) => setItemsPerPages(Number(e.target.value))}
-                >
-                    <option value={20}>20</option>
-                    <option value={30}>30</option>
-                    <option value={40}>40</option>
-                    <option value={50}>50</option>
-                </select>
-            </div>
+          <div className="border rounded-md grid grid-cols-2 gap-1 px-1 items-center text-sm">
+            <span className="font-medium">Sort By:</span>
+            <select
+              id="sortBy"
+              name="sortBy"
+              className="bg-transparent rounded-md border-0 py-0 px-3 text-gray-900 placeholder:text-gray-400"
+            >
+              <option>Name a - z</option>
+            </select>
+          </div>
+          <div className="border rounded-md grid grid-cols-2 gap-1 px-1 items-center text-sm">
+            <span className="font-medium">Show:</span>
+            <select
+              id="pages"
+              name="pages"
+              className="bg-transparent rounded-md border-0 py-0 px-3 text-gray-900 placeholder:text-gray-400"
+              onChange={(e) => setItemsPerPages(Number(e.target.value))}
+            >
+              <option value={20}>20</option>
+              <option value={30}>30</option>
+              <option value={40}>40</option>
+              <option value={50}>50</option>
+            </select>
+          </div>
         </div>
       </div>
-    {productList.length ? (
+      {productList.length ? (
         <>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {productList.map((product) => (

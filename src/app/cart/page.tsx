@@ -5,13 +5,11 @@ import { BiSolidTrash } from "react-icons/bi";
 import { useContext } from "react";
 import GlobalContext from "@/code/globalContext";
 import Link from "next/link";
-import { useAuthCheck } from "@/hooks/useAuthCheck";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 
 export default function Cart() {
   const { userCart, setUserCart } = useContext(GlobalContext);
-  const { session, status, isLoading } = useAuthCheck();
   const router = useRouter();
 
 
@@ -21,11 +19,7 @@ export default function Cart() {
   //   console.log(session.user.name);
   //   console.log(session.user.email);
   // }
-  useEffect(() => {
-    if (!session || status !== "authenticated") {
-      router.push("/auth/sign-in");
-    }
-  }, [session, status]);
+
   const [total, setTotal] = useState(0);
   const [totalWithTaxes, setTotalWithTaxes] = useState(0);
 
@@ -44,7 +38,7 @@ export default function Cart() {
         return;
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart/items/${id}`, {
+      const response = await fetch(`http://alsanidi.metatesting.online/public/api/cart/items/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -68,18 +62,18 @@ export default function Cart() {
     // setTotalWithTaxes(total * 1.21);
   }, [userCart]);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
-  if (!session) {
-    return null;
-  }
+  // if (!session) {
+  //   return null;
+  // }
   console.log(userCart);
   return (
     <div className="container px-3 max-w-[700px] mx-auto py-12">
       <h2 className="text-2xl text-blackText font-bold mb-6 text-center">Cart</h2>
-      {(userCart && userCart.length) || isLoading ? (
+      {(userCart && userCart.length) ? (
         userCart?.map((pro, index: any) => (
           <ProductCard key={index + 1} product={pro}>
             <div className="mt-3 flex justify-center lg:justify-end text-sm font-medium">

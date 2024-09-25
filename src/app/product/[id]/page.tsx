@@ -1,5 +1,4 @@
 "use client";
-import { iProduct } from "@/code/dataModels";
 // import products from "@/code/products_db";
 import { useContext, useEffect, useState } from "react";
 import ProductSkeleton from "./productSkeleton";
@@ -10,11 +9,11 @@ import ProductsTabs from "./productsTabs";
 import GlobalContext from "@/code/globalContext";
 
 export default function Product({ params }: { params: { id: string } }) {
-    // Access context data
-    const { AllProducts } = useContext(GlobalContext);
-  const [product, setProduct] = useState<iProduct | null>(null);
+  // Access context data
+  const { AllProducts } = useContext(GlobalContext);
+  const [product, setProduct] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-const allProducts= AllProducts ?? []; // Default to an empty array if AllProducts is null or undefined
+  const allProducts = AllProducts ?? []; // Default to an empty array if AllProducts is null or undefined
   useEffect(() => {
     const findProduct = allProducts.find(
       (product) => product.id == parseInt(params.id)

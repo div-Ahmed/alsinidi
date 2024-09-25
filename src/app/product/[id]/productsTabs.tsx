@@ -1,10 +1,9 @@
 "use client";
 
-import { iProduct } from "@/code/dataModels";
 import * as tabContent from "./products_TabsContent";
 import { useEffect, useState } from "react";
 
-export default function ProductsTabs({product}: {product: iProduct}) {
+export default function ProductsTabs({ product }: { product: any }) {
   const [activeTab, setActiveTab] = useState("related");
   const TabContent: any = tabContent;
   const [ActiveContent, setActiveContent] = useState<(() => JSX.Element) | null>(null); // Initialize as null
@@ -13,9 +12,9 @@ export default function ProductsTabs({product}: {product: iProduct}) {
       id: "related",
       title: "Related products",
     },
-    { id: "sameBrand", title: "Same brand"},
-    { id: "sameCategory", title: "Same category"},
-    { id: "peopleAlsoBought", title: "People also bought"},
+    { id: "sameBrand", title: "Same brand" },
+    { id: "sameCategory", title: "Same category" },
+    { id: "peopleAlsoBought", title: "People also bought" },
   ];
 
   useEffect(() => {
@@ -30,11 +29,10 @@ export default function ProductsTabs({product}: {product: iProduct}) {
             onClick={() => setActiveTab(tab.id)}
             role="button"
             key={tab.id}
-            className={`cursor-pointer text-sm pb-3 mb-4 lg:mb-0 flex items-center ${
-              activeTab === tab.id
+            className={`cursor-pointer text-sm pb-3 mb-4 lg:mb-0 flex items-center ${activeTab === tab.id
                 ? "text-primary border-b-2 border-primary font-bold"
                 : "text-captionColor"
-            }`}
+              }`}
           >
             <span className="px-3">{tab.title}</span>
           </div>
@@ -42,7 +40,7 @@ export default function ProductsTabs({product}: {product: iProduct}) {
       </div>
       <div className="lg:basis-3/4 basis-full">
         <div className="">
-          {ActiveContent && <ActiveContent/>}{" "}
+          {ActiveContent && <ActiveContent />}{" "}
           {/* Render ActiveContent if it's not null */}
         </div>
       </div>

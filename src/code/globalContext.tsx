@@ -3,14 +3,13 @@
 
 import { createContext, Dispatch, SetStateAction, useState, useEffect } from "react";
 import G from "./globalData";
-import { iProductInCart } from "./dataModels";
 import axios from 'axios';
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 
 interface IGlobalContext {
-    G_productsInCart: iProductInCart[];
-    setG_ProductsInCart: Dispatch<SetStateAction<iProductInCart[]>>;
+    G_productsInCart: any[];
+    setG_ProductsInCart: Dispatch<SetStateAction<any[]>>;
     AllProducts: any[] | null; // Adjust the type based on your actual data structure
     setAllProducts: Dispatch<SetStateAction<any[] | null>>;
     AllCategories: any[] | null;
@@ -79,7 +78,7 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
                     return;
                 }
 
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart/items`, {
+                const response = await fetch(`http://alsanidi.metatesting.online/public/api/cart/items`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -91,7 +90,7 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
                 if (response.ok) {
                     const data = await response.json();
                     setUserCart(data);
-                    console.log(data, "data");
+                    // console.log(data, "data");
                 } else {
                     const errorData = await response.json();
                     router.push("/auth/sign-in");
@@ -108,7 +107,7 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
+                const response = await axios.get(`http://alsanidi.metatesting.online/public/api/products`, {
                     headers: {
                         "X-LOCALE": "en",
                     },
@@ -125,7 +124,7 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/categories`, {
+                const response = await axios.get(`http://alsanidi.metatesting.online/public/api/categories`, {
                     headers: {
                         "X-LOCALE": "en",
                     },
@@ -142,7 +141,7 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
     useEffect(() => {
         const fetchBrands = async () => {
             try {
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/brands`, {
+                const response = await axios.get(`http://alsanidi.metatesting.online/public/api/brands`, {
                     headers: {
                         "X-LOCALE": "en",
                     },
@@ -158,7 +157,7 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
     useEffect(() => {
         const fetchCountries = async () => {
             try {
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/countries`, {
+                const response = await axios.get(`http://alsanidi.metatesting.online/public/api/countries`, {
                     headers: {
                         "X-LOCALE": "en",
                     },
@@ -175,7 +174,7 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
     useEffect(() => {
         const fetchColors = async () => {
             try {
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/colors`, {
+                const response = await axios.get(`http://alsanidi.metatesting.online/public/api/colors`, {
                     headers: {
                         "X-LOCALE": "en",
                     },
@@ -189,7 +188,7 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
     }, []);
     const fetchSubCategoriesProducts = async (catId: string) => {
         try {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/products?category_id=${catId}`, {
+            const response = await axios.get(`http://alsanidi.metatesting.online/public/api/products?category_id=${catId}`, {
                 headers: {
                     "X-LOCALE": "en",
                 },
@@ -202,7 +201,7 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
 
 
 
-    console.log(AllProducts);
+    // console.log(AllProducts);
     return (
         <GlobalContext.Provider
             value={{

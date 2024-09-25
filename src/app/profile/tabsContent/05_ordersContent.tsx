@@ -1,6 +1,5 @@
 "use client";
 
-import { iProduct } from "@/code/dataModels";
 // import G from "@/code/globalData";
 import ProductCard from "@/components/productCard";
 import { useState, useEffect } from "react";
@@ -9,8 +8,8 @@ import noOrders from "/public/assets/noOrders.png";
 
 export default function OrdersContent() {
   // const [currentUser, setCurrentUser] = useState(G.session.user);
-  const [ordersList, setOrdersList] = useState<iProduct[]>([]);
-  useEffect(() => {}, []);
+  const [ordersList, setOrdersList] = useState<any[]>([]);
+  useEffect(() => { }, []);
   return (
     <div className="container px-0">
       {ordersList && ordersList.length ? (

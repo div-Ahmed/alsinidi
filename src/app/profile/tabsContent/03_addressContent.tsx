@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import GlobalContext from "@/code/globalContext";
 import { BiPlus, BiSolidPencil, BiSolidTrash } from "react-icons/bi";
+import { getToken } from "@/lib/auth";
 
 const addressSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -29,8 +30,6 @@ export default function AddressContent() {
   const { user, AllCountries } = useContext(GlobalContext);
   const [addresses, setAddresses] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  // const [editAddress, setEditAddress] = useState<AddressFormData | null>(null);
-  // const [editAddress, setEditAddress] = useState<boolean>(false);
   const { register, handleSubmit, formState: { errors }, reset } = useForm<AddressFormData>({
     resolver: zodResolver(addressSchema),
     defaultValues: {
@@ -40,11 +39,13 @@ export default function AddressContent() {
     }
   });
 
+
   const fetchAddresses = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/addresses`, {
+      const access_token = getToken();
+      const response = await fetch(`http://alsanidi.metatesting.online/public/api/user/addresses`, {
         headers: {
-          'Authorization': `Bearer ${user.access_token}`
+          'Authorization': `Bearer ${access_token}`
         },
       });
       if (response.ok) {
@@ -57,10 +58,11 @@ export default function AddressContent() {
   };
   const handleDelete = async (id: string) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/addresses/${id}`, {
+      const access_token = getToken();
+      const response = await fetch(`http://alsanidi.metatesting.online/public/api/user/addresses/${id}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${user.access_token}`
+          'Authorization': `Bearer ${access_token}`
         },
       });
       if (response.ok) {
@@ -77,10 +79,11 @@ export default function AddressContent() {
   };
   const handleEdit = async (id: string) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/addresses/${id}`, {
+      const access_token = getToken();
+      const response = await fetch(`http://alsanidi.metatesting.online/public/api/user/addresses/${id}`, {
         method: 'PUT',
         headers: {
-          'Authorization': `Bearer ${user.access_token}`
+          'Authorization': `Bearer ${access_token}`
         },
       });
       if (response.ok) {
@@ -103,11 +106,12 @@ export default function AddressContent() {
 
   const onSubmit = async (data: AddressFormData) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/addresses`, {
+      const access_token = getToken();
+      const response = await fetch(`http://alsanidi.metatesting.online/public/api/user/addresses`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${user.access_token}`
+          'Authorization': `Bearer ${access_token}`
         },
         body: JSON.stringify(data),
       });
@@ -126,7 +130,6 @@ export default function AddressContent() {
       setMessage({ type: 'error', text: 'An unexpected error occurred' });
     }
   };
-  console.log(addresses)
   return (
     <div className="container px-0">
       <h2 className="text-2xl text-blackText font-bold mb-1">Address Book</h2>

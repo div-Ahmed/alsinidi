@@ -5,7 +5,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useSession, getSession } from 'next-auth/react';
+import { isAuthenticated, logout } from "@/lib/auth";
+// import { useSession, getSession } from 'next-auth/react';
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("general");
@@ -14,18 +15,8 @@ export default function Profile() {
     (() => JSX.Element) | null
   >(null); // Initialize as null
   const router = useRouter();
-  const { data: session, status } = useSession();
 
-  // if (!session || status === "unauthenticated") {
-  //   router.push("/auth/sign-in");
-  // } else if (session.user) {
-  //   console.log(session.user.name);
-  //   console.log(session.user.email);
-  useEffect(() => {
-    if (!session || status !== "authenticated") {
-      router.push("/auth/sign-in");
-    }
-  }, [session, status]);
+
   const tabs = [
     {
       id: "general",
@@ -43,10 +34,11 @@ export default function Profile() {
     setActiveContent(() => TabContent[activeTab]); // Set initial ActiveContent
   }, [TabContent, activeTab]);
 
-  const handleLogout = async () => {
-    await signOut({ redirect: false });
-    router.push("/");
-  };
+  // useEffect(() => {
+  //   if (!isAuthenticated()) {
+  //     router.push('/sign-in');
+  //   }
+  // }, [router]);
 
   return (
     <main dir="ltr">
@@ -68,7 +60,7 @@ export default function Profile() {
               </div>
             ))}
             <button
-              onClick={handleLogout}
+              onClick={logout}
               className="cursor-pointer bg-pinkLightColor text-redColor font-medium text-sm p-3 rounded-lg flex items-center w-full"
             >
               <DynamicBiIcons iconName="BiLogOut" className="text-lg" />
@@ -77,9 +69,7 @@ export default function Profile() {
           </div>
           <div className="lg:basis-3/4 basis-full">
             <div className="ltr:lg:ml-6 rtl:lg:mr-6 mx-0">
-              <div className="rounded-full size-10 overflow-hidden">
-                <img className=" w-full" src={session?.user?.image || ""} alt="User Profile" />
-              </div>
+
               {ActiveContent && <ActiveContent />}{" "}
               {/* Render ActiveContent if it's not null */}
             </div>

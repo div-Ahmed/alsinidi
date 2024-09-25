@@ -1,16 +1,15 @@
 "use client";
 
-import signGoogle from "/public/assets/signGoogle.png";
-import Image from "next/image";
 import Link from "next/link";
 import { PiEye, PiEyeClosed } from "react-icons/pi";
 import { useEffect, useState } from "react";
 import SignInUpSide from "@/components/sign_in_up_side";
-import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import axios from "axios";
+import toast, { Toaster } from 'react-hot-toast';
 
 const signUpSchema = z.object({
   first_name: z.string().min(2, "Name must be at least 2 characters"),
@@ -34,77 +33,71 @@ type SignUpFormData = z.infer<typeof signUpSchema>;
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [countrys, setCountrys] = useState([]);
-  const [error, setError] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
   const returnUrl = searchParams?.get('returnUrl') || '/';
 
-  const { register, handleSubmit, formState: { errors } } = useForm<SignUpFormData>({
+  const { register, handleSubmit, setError, formState: { errors } } = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema)
   });
   const getCountrys = async () => {
-    const response = await fetch('https://alsanidi.metatesting.online/public/api/countries', {
+    const response = await axios.get('http://alsanidi.metatesting.online/public/api/countries', {
       headers: {
         'X-LOCALE': 'en',
       }
     });
-    const data = await response.json();
-    setCountrys(data);
+    setCountrys(response.data);
+
   }
   const onSubmit = async (data: SignUpFormData) => {
     try {
-      const response = await fetch('https://alsanidi.metatesting.online/public/api/auth/register', {
-        method: 'POST',
+      const response = await axios.post('http://alsanidi.metatesting.online/public/api/auth/register', data, {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
-
       });
 
-      if (response.ok) {
-        // Sign in the user after successful registration
-        const result = await signIn('credentials', {
-          redirect: false,
-          email: data.email,
-          password: data.password,
-        });
-
-        if (result?.error) {
-          console.error(result.error);
-        } else {
-          router.push("/auth/sign-in");
-        }
+      if (response.status === 200) {
+        toast.success('Registration successful!');
+        router.push('/sign-in');
       } else {
-        const errorData = await response.json();
-        console.error('Registration failed:', errorData);
-        setError(errorData.data);
-        // Handle registration errors (e.g., display error messages)
+        console.error('Registration failed with status:', response.status);
+        toast.error('Registration failed. Please try again.');
       }
-    } catch (error) {
-      console.error('An error occurred during registration:', error);
+    } catch (error: any) {
+      if (error.response?.data?.data) {
+        Object.entries(error.response.data.data).forEach(([field, messages]) => {
+          if (Array.isArray(messages) && messages.length > 0) {
+            setError(field as keyof SignUpFormData, { message: messages[0] });
+          }
+        });
+      } else {
+        toast.error(error.message);
+      }
     }
   };
 
-  const handleGoogleSignUp = async () => {
-    const result = await signIn('google', {
-      redirect: false,
-      callbackUrl: returnUrl
-    });
+  // const handleGoogleSignUp = async () => {
+  //   const result = await signIn('google', {
+  //     redirect: false,
+  //     callbackUrl: returnUrl
+  //   });
 
-    if (result?.error) {
-      console.error(result.error);
-    } else if (result?.url) {
-      router.push(result.url);
-    }
-  };
+  //   if (result?.error) {
+  //     console.error(result.error);
+  //   } else if (result?.url) {
+  //     router.push(result.url);
+  //   }
+  // };
   useEffect(() => {
     (async () => {
       await getCountrys();
     })();
   }, []);
+
   return (
     <main dir="ltr">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="flex flex-wrap">
         <div className="lg:basis-1/2 basis-full bg-bgBrimary lg:min-h-screen">
           <SignInUpSide>
