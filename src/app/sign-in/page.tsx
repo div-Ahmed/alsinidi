@@ -62,6 +62,7 @@ export default function SignIn() {
           // TODO: redirect to the redirect URL or home page
           router.replace(searchParams?.get('redirect') || '/');
         } else {
+
           console.error('Token was not set successfully');
           toast.error('Failed to set token. Please try again.');
         }
@@ -77,6 +78,7 @@ export default function SignIn() {
           }
         });
       } else {
+        console.log(error)
         toast.error('Email or password is incorrect');
       }
     } finally {
