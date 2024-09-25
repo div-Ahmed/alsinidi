@@ -34,8 +34,6 @@ export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [countrys, setCountrys] = useState([]);
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const returnUrl = searchParams?.get('returnUrl') || '/';
 
   const { register, handleSubmit, setError, formState: { errors } } = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema)
