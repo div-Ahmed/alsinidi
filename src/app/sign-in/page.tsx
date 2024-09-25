@@ -39,15 +39,16 @@ export default function SignIn() {
 
   const onSubmit = async (data: SignInFormData) => {
     try {
+      console.log("signin")
       setIsLoading(true);
 
       // Send login request to the API
-      const response = await axios.post('http://alsanidi.metatesting.online/public/api/auth/login', {
+      const response = await axios.post('https://alsanidi.metatesting.online/public/api/auth/login', {
         email: data.email,
         password: data.password,
       });
 
-
+      console.log(response.data)
 
       if (response.status === 200) {
         const userData = response.data;
@@ -57,7 +58,7 @@ export default function SignIn() {
         setToken(userData.access_token);
         // Check if the token is set successfully
         if (getToken() === userData.access_token) {
-
+          console.log(getToken())
           // TODO: redirect to the redirect URL or home page
           router.replace(searchParams?.get('redirect') || '/');
         } else {

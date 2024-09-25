@@ -43,7 +43,7 @@ export default function AddressContent() {
   const fetchAddresses = async () => {
     try {
       const access_token = getToken();
-      const response = await fetch(`http://alsanidi.metatesting.online/public/api/user/addresses`, {
+      const response = await fetch(`https://alsanidi.metatesting.online/public/api/user/addresses`, {
         headers: {
           'Authorization': `Bearer ${access_token}`
         },
@@ -59,7 +59,7 @@ export default function AddressContent() {
   const handleDelete = async (id: string) => {
     try {
       const access_token = getToken();
-      const response = await fetch(`http://alsanidi.metatesting.online/public/api/user/addresses/${id}`, {
+      const response = await fetch(`https://alsanidi.metatesting.online/public/api/user/addresses/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${access_token}`
@@ -80,7 +80,7 @@ export default function AddressContent() {
   const handleEdit = async (id: string) => {
     try {
       const access_token = getToken();
-      const response = await fetch(`http://alsanidi.metatesting.online/public/api/user/addresses/${id}`, {
+      const response = await fetch(`https://alsanidi.metatesting.online/public/api/user/addresses/${id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${access_token}`
@@ -107,7 +107,7 @@ export default function AddressContent() {
   const onSubmit = async (data: AddressFormData) => {
     try {
       const access_token = getToken();
-      const response = await fetch(`http://alsanidi.metatesting.online/public/api/user/addresses`, {
+      const response = await fetch(`https://alsanidi.metatesting.online/public/api/user/addresses`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

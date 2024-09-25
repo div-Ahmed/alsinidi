@@ -45,7 +45,7 @@ const ProductCardCol = ({
 
     setIsAddingToWishlist(true);
     try {
-      const response = await fetch(`http://alsanidi.metatesting.online/public/api/favorites`, {
+      const response = await fetch(`https://alsanidi.metatesting.online/public/api/favorites`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ const ProductCardCol = ({
         return;
       }
 
-      const response = await fetch(`http://alsanidi.metatesting.online/public/api/cart/items`, {
+      const response = await fetch(`https://alsanidi.metatesting.online/public/api/cart/items`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -138,7 +138,7 @@ const ProductCardCol = ({
         return;
       }
 
-      const response = await fetch(`http://alsanidi.metatesting.online/public/api/cart/items/${product.id}`, {
+      const response = await fetch(`https://alsanidi.metatesting.online/public/api/cart/items/${product.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

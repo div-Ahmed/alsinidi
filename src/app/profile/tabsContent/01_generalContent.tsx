@@ -15,7 +15,7 @@ export default function GeneralContent() {
 
   const getUser = async (token: string) => {
     try {
-      const response = await fetch(`http://alsanidi.metatesting.online/public/api/user/profile`, {
+      const response = await fetch(`https://alsanidi.metatesting.online/public/api/user/profile`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export default function GeneralContent() {
       return;
     }
     try {
-      const response = await fetch(`http://alsanidi.metatesting.online/public/api/user/change-profile`, {
+      const response = await fetch(`https://alsanidi.metatesting.online/public/api/user/change-profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

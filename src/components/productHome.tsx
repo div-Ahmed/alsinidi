@@ -161,7 +161,7 @@ const ProductHome = ({ titleProductCategory, swiperNum }: IProductHome) => {
   };
   const [homeProducts, setHomeProducts] = useState<any[any] | null>(null);
   const getHomeProducts = async () => {
-    const res = await fetch(`http://alsanidi.metatesting.online/public/api/page/home`, {
+    const res = await fetch(`https://alsanidi.metatesting.online/public/api/page/home`, {
       headers: {
         "X-LOCALE": "en"
       }

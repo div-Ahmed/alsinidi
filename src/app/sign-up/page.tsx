@@ -39,7 +39,7 @@ export default function SignUp() {
     resolver: zodResolver(signUpSchema)
   });
   const getCountrys = async () => {
-    const response = await axios.get('http://alsanidi.metatesting.online/public/api/countries', {
+    const response = await axios.get('https://alsanidi.metatesting.online/public/api/countries', {
       headers: {
         'X-LOCALE': 'en',
       }
@@ -49,7 +49,7 @@ export default function SignUp() {
   }
   const onSubmit = async (data: SignUpFormData) => {
     try {
-      const response = await axios.post('http://alsanidi.metatesting.online/public/api/auth/register', data, {
+      const response = await axios.post('https://alsanidi.metatesting.online/public/api/auth/register', data, {
         headers: {
           'Content-Type': 'application/json',
         },

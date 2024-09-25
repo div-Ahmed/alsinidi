@@ -38,7 +38,7 @@ export default function Cart() {
         return;
       }
 
-      const response = await fetch(`http://alsanidi.metatesting.online/public/api/cart/items/${id}`, {
+      const response = await fetch(`https://alsanidi.metatesting.online/public/api/cart/items/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
