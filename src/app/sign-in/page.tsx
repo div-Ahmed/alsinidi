@@ -48,7 +48,7 @@ export default function SignIn() {
         password: data.password,
       });
 
-      console.log(response.data)
+      console.log(response)
 
       if (response.status === 200) {
         const userData = response.data;
