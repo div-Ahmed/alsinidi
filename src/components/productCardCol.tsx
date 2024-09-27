@@ -30,6 +30,7 @@ console.log(getToken(),"gggg")
     (item: any) =>item.id===product.id?setActiveHearts(true):setActiveHearts(false)
   );
  },[userFavorites,product.id]
+ 
 
  );
 
