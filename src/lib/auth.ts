@@ -27,12 +27,21 @@ export const logout = () => {
     window.location.href = '/sign-in';
 };
 
-export const refreshToken = async () => {
-    const response = await fetch('/api/refresh-token', { method: 'POST', credentials: 'include' });
+export const refreshToken = async (token: string) => {
+    const response = await fetch('http://alsanidi.metatesting.online/public/api/auth/refresh', { 
+        method: 'POST', 
+        cache: 'no-store',
+        credentials: 'include', 
+        headers: {
+            'Authorization': `Bearer ${token}`, // Send the current token in the Authorization header
+            'Content-Type': 'application/json'
+        }
+    });
+
     if (response.ok) {
-        const { token } = await response.json();
-        setToken(token);
-        return token;
+        const { token: newToken } = await response.json(); // Destructure the new token from the response
+        setToken(newToken); // Set the new token
+        return newToken; // Return the new token
     } else {
         throw new Error('Failed to refresh token');
     }

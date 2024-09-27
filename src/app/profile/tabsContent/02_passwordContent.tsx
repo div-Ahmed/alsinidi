@@ -30,7 +30,7 @@ export default function PasswordContent() {
   const onSubmit = async (data: PasswordFormData) => {
     try {
       const access_token = getToken();
-      const response = await fetch(`https://alsanidi.metatesting.online/public/api/user/change-password`, {
+      const response = await fetch(`http://alsanidi.metatesting.online/public/api/user/change-password`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

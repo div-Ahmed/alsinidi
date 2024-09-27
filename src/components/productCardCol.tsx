@@ -8,6 +8,7 @@ import heartRed from "/public/assets/heartRed.png";
 import GlobalContext from "@/code/globalContext";
 import Image from "next/image";
 import { jwtDecode } from "jwt-decode";
+import Link from "next/link";
 
 const ProductCardCol = ({
   product,
@@ -45,7 +46,7 @@ const ProductCardCol = ({
 
     setIsAddingToWishlist(true);
     try {
-      const response = await fetch(`https://alsanidi.metatesting.online/public/api/favorites`, {
+      const response = await fetch(`http://alsanidi.metatesting.online/public/api/favorites`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +91,7 @@ const ProductCardCol = ({
         return;
       }
 
-      const response = await fetch(`https://alsanidi.metatesting.online/public/api/cart/items`, {
+      const response = await fetch(`http://alsanidi.metatesting.online/public/api/cart/items`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -138,7 +139,7 @@ const ProductCardCol = ({
         return;
       }
 
-      const response = await fetch(`https://alsanidi.metatesting.online/public/api/cart/items/${product.id}`, {
+      const response = await fetch(`http://alsanidi.metatesting.online/public/api/cart/items/${product.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -277,7 +278,8 @@ const ProductCardCol = ({
         </div>
         <div className="caption-product-home ">
           <h3 className="lg:text-[.8rem] text-xs text-blackSubText font-semibold">
-            {product.name}
+            <Link href={`/product/${product.id}`} className="hover:text-primary underline block"> {product.name} </Link>
+
           </h3>
           {/* Div With Price */}
           <div className="my-2 ">

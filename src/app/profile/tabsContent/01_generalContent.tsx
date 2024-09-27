@@ -15,7 +15,7 @@ export default function GeneralContent() {
 
   const getUser = async (token: string) => {
     try {
-      const response = await fetch(`https://alsanidi.metatesting.online/public/api/user/profile`, {
+      const response = await fetch(`http://alsanidi.metatesting.online/public/api/user/profile`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -42,15 +42,15 @@ export default function GeneralContent() {
     })();
   }, []);
 
+  const access_token = getToken();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const access_token = getToken();
     if (!access_token) {
       setMessage({ type: 'error', text: 'No access token found' });
       return;
     }
     try {
-      const response = await fetch(`https://alsanidi.metatesting.online/public/api/user/change-profile`, {
+      const response = await fetch(`http//alsanidi.metatesting.online/public/api/user/change-profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ export default function GeneralContent() {
       setMessage({ type: 'error', text: 'Failed to update profile' });
     }
   };
-
+  if (!access_token) return <div>Loading...</div>
   return (
     <div className="container px-0">
       <h2 className="text-2xl text-blackText font-bold mb-1">

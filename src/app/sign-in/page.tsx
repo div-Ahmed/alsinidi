@@ -43,9 +43,10 @@ export default function SignIn() {
       setIsLoading(true);
 
       // Send login request to the API
-      const response = await axios.post('https://alsanidi.metatesting.online/public/api/auth/login', {
+      const response = await axios.post('http://alsanidi.metatesting.online/public/api/auth/login', {
         email: data.email,
         password: data.password,
+      }, {
       });
 
       console.log(response)
@@ -61,6 +62,7 @@ export default function SignIn() {
           console.log(getToken())
           // TODO: redirect to the redirect URL or home page
           router.replace(searchParams?.get('redirect') || '/');
+          window.location.reload();
         } else {
 
           console.error('Token was not set successfully');
@@ -94,7 +96,7 @@ export default function SignIn() {
     }
   }, [router, searchParams?.get('redirect')]);
   return (
-    <main dir="ltr">
+    <main dir="ltr" className={`${isLoading ? 'hidden' : ''}`}>
       <Toaster position="top-center" reverseOrder={false} toastOptions={{ duration: 2000 }} />
       <div className="flex flex-wrap">
         <div className="lg:basis-1/2 basis-full bg-bgBrimary lg:min-h-screen">
