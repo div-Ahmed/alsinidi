@@ -39,15 +39,17 @@ export default function SignIn() {
 
   const onSubmit = async (data: SignInFormData) => {
     try {
+      console.log("signin")
       setIsLoading(true);
 
       // Send login request to the API
       const response = await axios.post('http://alsanidi.metatesting.online/public/api/auth/login', {
         email: data.email,
         password: data.password,
+      }, {
       });
 
-
+      console.log(response)
 
       if (response.status === 200) {
         const userData = response.data;
@@ -58,10 +60,12 @@ export default function SignIn() {
     
         // Check if the token is set successfully
         if (getToken() === userData.access_token) {
-
+          console.log(getToken())
           // TODO: redirect to the redirect URL or home page
           router.replace(searchParams?.get('redirect') || '/');
+          window.location.reload();
         } else {
+
           console.error('Token was not set successfully');
           toast.error('Failed to set token. Please try again.');
         }
@@ -77,6 +81,7 @@ export default function SignIn() {
           }
         });
       } else {
+        console.log(error)
         toast.error('Email or password is incorrect');
       }
     } finally {
@@ -92,7 +97,7 @@ export default function SignIn() {
     }
   }, [router, searchParams?.get('redirect')]);
   return (
-    <main dir="ltr">
+    <main dir="ltr" className={`${isLoading ? 'hidden' : ''}`}>
       <Toaster position="top-center" reverseOrder={false} toastOptions={{ duration: 2000 }} />
       <div className="flex flex-wrap">
         <div className="lg:basis-1/2 basis-full bg-bgBrimary lg:min-h-screen">

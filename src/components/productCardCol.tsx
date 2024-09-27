@@ -9,7 +9,7 @@ import GlobalContext from "@/code/globalContext";
 import Image from "next/image";
 import { jwtDecode } from "jwt-decode";
 import { setToken, getToken, isAuthenticated, isTokenValid } from "@/lib/auth";
-
+import Link from "next/link";
 const ProductCardCol = ({
   product,
 }: {
@@ -327,7 +327,8 @@ const fetchUserFavorites = async () => {
         </div>
         <div className="caption-product-home ">
           <h3 className="lg:text-[.8rem] text-xs text-blackSubText font-semibold">
-            {product.name}
+            <Link href={`/product/${product.id}`} className="hover:text-primary underline block"> {product.name} </Link>
+
           </h3>
           {/* Div With Price */}
           <div className="my-2 ">
