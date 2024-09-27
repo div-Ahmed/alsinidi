@@ -55,6 +55,7 @@ export default function SignIn() {
 
         // Set the token
         setToken(userData.access_token);
+    
         // Check if the token is set successfully
         if (getToken() === userData.access_token) {
 

@@ -6,7 +6,7 @@ import G from "./globalData";
 import axios from 'axios';
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
-
+import { setToken, getToken, isAuthenticated, isTokenValid } from "@/lib/auth";
 interface IGlobalContext {
     G_productsInCart: any[];
     setG_ProductsInCart: Dispatch<SetStateAction<any[]>>;
@@ -25,6 +25,8 @@ interface IGlobalContext {
     user: any | null;
     userCart: any[] | null;
     setUserCart: Dispatch<SetStateAction<any[] | null>>;
+    userFavorites: any[] | null;
+    setUserFavorites: Dispatch<SetStateAction<any[] | null>>;
 }
 interface Idata {
     data: any[];
@@ -48,6 +50,8 @@ const GlobalContext = createContext<IGlobalContext>({
     user: null,
     userCart: null,
     setUserCart: () => { },
+    userFavorites: null,
+    setUserFavorites: () => {},
 });
 
 export const GlobalContextProvider = ({ children }: { children: React.ReactNode }) => {
@@ -60,13 +64,17 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
     const [AllCountries, setAllCountries] = useState<any[] | null>(null);
     const [AllColors, setAllColors] = useState<any[] | null>(null);
     const [user, setUser] = useState<any | null>(null);
+    const [userFavorites, setUserFavorites] = useState<any[] | null>(null);
     // const [SingleSubCategoryProducts, setSingleSubCategoryProducts] = useState<any[] | null>(null);
+    console.log(userFavorites,"favoritsss")
+    console.log(getToken(),"tokennnnnn")
     useEffect(() => {
 
         const fetchProducts = async () => {
             const token = localStorage.getItem('userToken');
             if (!token) {
                 return;
+
             }
 
             try {
@@ -198,7 +206,107 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
             console.error("Failed to fetch colors:", error);
         }
     };
+// Fetch Wishlist (Favorites)
+useEffect(() => {
+    const fetchFavorites = async () => {
+        const token = getToken();
+      console.log(token,"jjjj")
+        try {
+            const response = await axios.get("http://alsanidi.metatesting.online/public/api/favorites", {
+                headers: {
+                    'X-LOCALE': 'en',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
 
+            if (response.status === 200) {
+                setUserFavorites(response.data);
+            }
+        } catch (error) {
+            console.error("Failed to fetch favorites", error);
+            router.push("/sign-in");
+        }
+    };
+    fetchFavorites();
+}, []);
+// useEffect(() => {
+//     const fetchFavorites = async () => {
+//         const token = getToken(); // Get the token from localStorage
+//         if (!token) {
+//             console.log("Token not found. Please log in.");
+//             router.push('/sign-in');
+//             return;
+//         }
+
+//         try {
+//             // Optionally validate token before making the request
+//             const tokenValid = await isTokenValid(token);
+//             if (!tokenValid) {
+//                 console.log("Invalid token. Please log in.");
+//                 router.push('/sign-in');
+//                 return;
+//             }
+
+//             // Make the API request using the token
+//             const response = await fetch(`https://alsanidi.metatesting.online/public/api/favorites`, {
+//                 method: 'GET',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                     'X-LOCALE': 'en',
+//                     'Authorization': `Bearer ${token}`, // Include the Bearer token
+//                 },
+//             });
+
+//             if (response.ok) {
+//                 const data = await response.json();
+//                 setUserFavorites(data); // Store fetched favorites in state
+//             } else {
+//                 console.log("Failed to fetch favorites. Redirecting to sign-in.");
+//                 router.push('/sign-in');
+//             }
+//         } catch (error) {
+//             console.error("Error fetching favorites:", error);
+//             router.push('/sign-in');
+            
+//         }
+//     };
+
+//     fetchFavorites();
+// }, [router]); // Add dependencies if needed
+// useEffect(() => {
+//     const fetchFavorites = async () => {
+//         const token = getToken();
+//         if (!token) {
+//             return;
+//         }
+
+//         try {
+           
+
+//             const response = await fetch(`https://alsanidi.metatesting.online/public/api/favorites`, {
+//                 method: 'GET',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                     "X-LOCALE": "en",
+//                     'Authorization': `Bearer ${token}`,
+//                 },
+//             });
+
+//             if (response.ok) {
+//                 const data = await response.json();
+//                 setUserFavorites(data); // Store fetched favorites
+//             } else {
+//                 const errorData = await response.json();
+//                 router.push("/auth/sign-in");
+//             }
+//         } catch (error) {
+//             console.log("Invalid token. Please log in.");
+//             return;
+//         }
+//     };
+
+//     fetchFavorites();
+// }, []);
 
 
     // console.log(AllProducts);
@@ -221,7 +329,9 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
                 setUser,
                 user,
                 userCart,
-                setUserCart
+                setUserCart,
+                userFavorites, // Provide the wishlist to the context
+                setUserFavorites,
             }}
         >
             {children}

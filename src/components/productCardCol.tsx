@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MdAddShoppingCart, MdOutlineMinimize } from "react-icons/md";
 import { GoPlus } from "react-icons/go";
 import heartWhite from "/public/assets/heartWhite.png";
@@ -8,6 +8,7 @@ import heartRed from "/public/assets/heartRed.png";
 import GlobalContext from "@/code/globalContext";
 import Image from "next/image";
 import { jwtDecode } from "jwt-decode";
+import { setToken, getToken, isAuthenticated, isTokenValid } from "@/lib/auth";
 
 const ProductCardCol = ({
   product,
@@ -20,9 +21,54 @@ const ProductCardCol = ({
   const [isAddingToWishlist, setIsAddingToWishlist] = useState(false);
   const [wishlistMessage, setWishlistMessage] = useState<string | null>(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
+  const {  userFavorites, setUserFavorites,AllProducts } = useContext(GlobalContext);
+console.log(getToken(),"gggg")
+
+ useEffect(()=>{
+
+  const isInWishlist = Array.isArray(userFavorites) && userFavorites.map(
+    (item: any) =>item.id===product.id?setActiveHearts(true):setActiveHearts(false)
+  );
+ },[userFavorites,product.id]
+
+ );
+
+
+
+// If the product is in the wishlist, set the heart as red (active)
+// if (isInWishlist) {
+//   setActiveHearts(true);
+// } else {
+//   setActiveHearts(false);
+// }
+
+
+const fetchUserFavorites = async () => {
+  const token = getToken();
+  if (!token) return;
+
+  try {
+    const response = await fetch('http://alsanidi.metatesting.online/public/api/favorites', {
+      cache:'no-cache',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'X-LOCALE': 'en',
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setUserFavorites(data.favorites); // Assuming the API returns an array of favorites
+    }
+  } catch (error) {
+    console.error('Error fetching updated wishlist:', error);
+  }
+};
+
+
 
   const handleAddToWishlist = async () => {
-    const token = localStorage.getItem('userToken');
+    const token = getToken();
     if (!token) {
       setWishlistMessage("Please log in to add items to your wishlist.");
       return;
@@ -58,6 +104,8 @@ const ProductCardCol = ({
       if (response.ok) {
         setActiveHearts(!activeHearts);
         setWishlistMessage(activeHearts ? "Removed from wishlist" : "Added to wishlist");
+          // Fetch updated wishlist after modification
+          await fetchUserFavorites();
       } else {
         const errorData = await response.json();
         setWishlistMessage(errorData.message || "Failed to update wishlist");
@@ -74,7 +122,7 @@ const ProductCardCol = ({
 
   // handelIncrement
   const handleIncrement = async () => {
-    const token = localStorage.getItem('userToken');
+    const token =getToken() ;
     if (!token) {
       setWishlistMessage("Please log in to add items to your wishlist.");
       return;
@@ -122,7 +170,8 @@ const ProductCardCol = ({
     if (counts === 0) {
       setActiveCart(false);
     }
-    const token = localStorage.getItem('userToken');
+    // const token = localStorage.getItem('userToken');
+    const token =getToken() ;
     if (!token) {
       setWishlistMessage("Please log in to add items to your wishlist.");
       return;
@@ -167,6 +216,7 @@ const ProductCardCol = ({
       !activeHearts
     );
   };
+ 
 
   const handleActiveCart = () => {
     // Toggle the active cart state
