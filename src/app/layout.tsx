@@ -4,6 +4,7 @@ import LayoutContainer from "../app/layoutContainer";
 import { GlobalContextProvider } from '@/code/globalContext';
 import { ClerkProvider } from "@clerk/nextjs";
 import SessionWrapper from "@/components/SessionWrapper";
+import { WishlistContextProvider } from "@/contexts/WishlistContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,15 +21,17 @@ export default function RootLayout({
   return (
 
     <GlobalContextProvider >
+      <WishlistContextProvider>
+        <LayoutContainer>
+          {/* <SessionWrapper> */}
 
-      <LayoutContainer>
-        {/* <SessionWrapper> */}
-
-        {children}
+          {children}
 
 
-        {/* </SessionWrapper> */}
-      </LayoutContainer>
+          {/* </SessionWrapper> */}
+        </LayoutContainer>
+
+      </WishlistContextProvider>
     </GlobalContextProvider>
   );
 }

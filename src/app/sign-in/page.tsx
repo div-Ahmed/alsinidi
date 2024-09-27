@@ -13,8 +13,7 @@ import { unstable_noStore as noStore } from 'next/cache';
 // import GlobalContext from "@/code/globalContext";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-import { setToken, getToken, isAuthenticated, isTokenValid } from "@/lib/auth";
-// import Cookies from 'js-cookie';
+import { setToken, getToken } from "@/lib/auth";
 
 const signInSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -57,12 +56,11 @@ export default function SignIn() {
 
         // Set the token
         setToken(userData.access_token);
-    
         // Check if the token is set successfully
         if (getToken() === userData.access_token) {
           console.log(getToken())
           // TODO: redirect to the redirect URL or home page
-          router.replace(searchParams?.get('redirect') || '/');
+          router.push(searchParams?.get('redirect') || '/');
           window.location.reload();
         } else {
 
@@ -97,7 +95,8 @@ export default function SignIn() {
     }
   }, [router, searchParams?.get('redirect')]);
   return (
-    <main dir="ltr" className={`${isLoading ? 'hidden' : ''}`}>
+    <main dir="ltr" >
+      {/* {isLoading && <div className="w-full h-screen flex justify-center items-center bg-red-400"><div className="w-10 h-10 bg-red-100 rounded-full animate-spin"></div></div>} */}
       <Toaster position="top-center" reverseOrder={false} toastOptions={{ duration: 2000 }} />
       <div className="flex flex-wrap">
         <div className="lg:basis-1/2 basis-full bg-bgBrimary lg:min-h-screen">

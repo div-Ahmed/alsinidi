@@ -3,18 +3,20 @@
 import GlobalContext from "@/code/globalContext";
 import G from "@/code/globalData";
 import { getToken } from "@/lib/auth";
+import { Loader } from "lucide-react";
 // import { useSession } from "next-auth/react";
 import { useState, useEffect, useContext } from "react";
 
 export default function GeneralContent() {
   const [currentUser, setCurrentUser] = useState(G.session.user);
   // const { data: session, status } = useSession();
-  const { user, setUser, AllCountries } = useContext(GlobalContext);
+  const { AllCountries } = useContext(GlobalContext);
   const [userData, setUserData] = useState<{ first_name: string, last_name: string, email: string, country: { name: string, id: string }, phone: string } | null>(null);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
-
+  const [isLoading, setIsLoading] = useState(false);
   const getUser = async (token: string) => {
     try {
+      setIsLoading(true);
       const response = await fetch(`http://alsanidi.metatesting.online/public/api/user/profile`, {
         method: 'GET',
         headers: {
@@ -28,10 +30,12 @@ export default function GeneralContent() {
       } else {
         throw new Error('Failed to fetch user data');
       }
+
     } catch (error) {
       console.error('Error fetching user data:', error);
       setMessage({ type: 'error', text: 'Failed to load user data' });
     }
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -77,7 +81,7 @@ export default function GeneralContent() {
       setMessage({ type: 'error', text: 'Failed to update profile' });
     }
   };
-  if (!access_token) return <div>Loading...</div>
+  if (isLoading) return <div className="flex justify-center items-center h-screen"><Loader className="animate-spin" /></div>
   return (
     <div className="container px-0">
       <h2 className="text-2xl text-blackText font-bold mb-1">

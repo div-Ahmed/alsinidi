@@ -8,8 +8,9 @@ import heartRed from "/public/assets/heartRed.png";
 import GlobalContext from "@/code/globalContext";
 import Image from "next/image";
 import { jwtDecode } from "jwt-decode";
-import { setToken, getToken, isAuthenticated, isTokenValid } from "@/lib/auth";
+import { getToken } from "@/lib/auth";
 import Link from "next/link";
+import WishlistContext from "@/contexts/WishlistContext";
 const ProductCardCol = ({
   product,
 }: {
@@ -21,72 +22,53 @@ const ProductCardCol = ({
   const [isAddingToWishlist, setIsAddingToWishlist] = useState(false);
   const [wishlistMessage, setWishlistMessage] = useState<string | null>(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
-  const {  userFavorites, setUserFavorites,AllProducts } = useContext(GlobalContext);
-console.log(getToken(),"gggg")
+  const { AllProducts } = useContext(GlobalContext);
+  const { userFavorites, fetchFavorites } = useContext(WishlistContext);
+  console.log(getToken(), "gggg")
 
- useEffect(()=>{
+  useEffect(() => {
 
-  const isInWishlist = Array.isArray(userFavorites) && userFavorites.map(
-    (item: any) =>item.id===product.id?setActiveHearts(true):setActiveHearts(false)
+    const isInWishlist = Array.isArray(userFavorites) && userFavorites.map(
+      (item: any) => item.id === product.id ? setActiveHearts(true) : setActiveHearts(false)
+    );
+  }, [userFavorites, product.id]
   );
- },[userFavorites,product.id]
- 
-
- );
-
-
-
-// If the product is in the wishlist, set the heart as red (active)
-// if (isInWishlist) {
-//   setActiveHearts(true);
-// } else {
-//   setActiveHearts(false);
-// }
+  // If the product is in the wishlist, set the heart as red (active)
+  // if (isInWishlist) {
+  //   setActiveHearts(true);
+  // } else {
+  //   setActiveHearts(false);
+  // }
 
 
-const fetchUserFavorites = async () => {
-  const token = getToken();
-  if (!token) return;
+  // const fetchUserFavorites = async () => {
+  //   const token = getToken();
+  //   if (!token) return;
 
-  try {
-    const response = await fetch('http://alsanidi.metatesting.online/public/api/favorites', {
-      cache:'no-cache',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'X-LOCALE': 'en',
-      },
-    });
+  //   try {
+  //     const response = await fetch('http://alsanidi.metatesting.online/public/api/favorites', {
+  //       cache: 'no-cache',
+  //       headers: {
+  //         'Authorization': `Bearer ${token}`,
+  //         'X-LOCALE': 'en',
+  //       },
+  //     });
 
-    if (response.ok) {
-      const data = await response.json();
-      setUserFavorites(data.favorites); // Assuming the API returns an array of favorites
-    }
-  } catch (error) {
-    console.error('Error fetching updated wishlist:', error);
-  }
-};
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setUserFavorites(data.favorites); // Assuming the API returns an array of favorites
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching updated wishlist:', error);
+  //   }
+  // };
 
 
 
-  const handleAddToWishlist = async () => {
+  const handleAddToWishlist = async (productId: number) => {
     const token = getToken();
     if (!token) {
       setWishlistMessage("Please log in to add items to your wishlist.");
-      return;
-    }
-
-    try {
-      const decodedToken: any = jwtDecode(token);
-      const currentTime = Date.now() / 1000;
-
-      if (decodedToken.exp < currentTime) {
-        console.log("Token is expired. Please log in again.");
-        setWishlistMessage("Your session has expired. Please log in again.");
-        return;
-      }
-    } catch (error) {
-      console.log("Invalid token. Please log in.");
-      setWishlistMessage("Invalid token. Please log in.");
       return;
     }
 
@@ -99,14 +81,14 @@ const fetchUserFavorites = async () => {
           "X-LOCALE": "en",
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ product_id: product.id })
+        body: JSON.stringify({ product_id: productId })
       });
 
       if (response.ok) {
         setActiveHearts(!activeHearts);
         setWishlistMessage(activeHearts ? "Removed from wishlist" : "Added to wishlist");
-          // Fetch updated wishlist after modification
-          await fetchUserFavorites();
+        // Fetch updated wishlist after modification
+        fetchFavorites();
       } else {
         const errorData = await response.json();
         setWishlistMessage(errorData.message || "Failed to update wishlist");
@@ -123,7 +105,7 @@ const fetchUserFavorites = async () => {
 
   // handelIncrement
   const handleIncrement = async () => {
-    const token =getToken() ;
+    const token = getToken();
     if (!token) {
       setWishlistMessage("Please log in to add items to your wishlist.");
       return;
@@ -172,7 +154,7 @@ const fetchUserFavorites = async () => {
       setActiveCart(false);
     }
     // const token = localStorage.getItem('userToken');
-    const token =getToken() ;
+    const token = getToken();
     if (!token) {
       setWishlistMessage("Please log in to add items to your wishlist.");
       return;
@@ -217,7 +199,7 @@ const fetchUserFavorites = async () => {
       !activeHearts
     );
   };
- 
+
 
   const handleActiveCart = () => {
     // Toggle the active cart state
@@ -255,7 +237,7 @@ const fetchUserFavorites = async () => {
 
   return (
     <>
-      <div className="product-content bg-white border-2 border-solid border-lightGrayColor rounded-md p-3">
+      <div id={`${product.id}`} className="product-content bg-white border-2 border-solid border-lightGrayColor rounded-md p-3">
         <div className="img-product-home relative flex justify-center ">
           <Image
             src={product.images[0].image_path}
@@ -313,7 +295,7 @@ const fetchUserFavorites = async () => {
           <div className="absolute top-0 w-full flex justify-between rtl:flex-row-reverse items-center">
             <button
               className={`font-medium text-sm text-blackText p-2 bg-white drop-shadow-custom rounded-lg block ${isAddingToWishlist ? 'opacity-50' : ''}`}
-              onClick={handleAddToWishlist}
+              onClick={() => handleAddToWishlist(product.id)}
               disabled={isAddingToWishlist}
             >
               <Image

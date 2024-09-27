@@ -16,7 +16,6 @@ export default function Profile() {
   >(null); // Initialize as null
   const router = useRouter();
 
-
   const tabs = [
     {
       id: "general",

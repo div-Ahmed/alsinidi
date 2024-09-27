@@ -2,26 +2,19 @@
 
 import { useState, useEffect, useContext } from "react";
 import ProductCard from "@/components/productCard";
-import { BiShoppingBag, BiSolidTrash } from "react-icons/bi";
-import GlobalContext from "@/code/globalContext";
 import ProductCardCol from "@/components/productCardCol";
-import Pagination from "@/components/pagination";
+import WishlistContext from "@/contexts/WishlistContext";
 export default function WishListContent() {
-  const { AllProducts,  userFavorites, setUserFavorites } = useContext(GlobalContext);
-  const allProducts = AllProducts ?? []; // Default to an empty array if AllProducts is null or undefined
+  const { userFavorites } = useContext(WishlistContext);
   const favorites = userFavorites ?? [];
-  const [productsList, setProductsList] = useState<any[]>([]);
-const[ allFavorits,setAllFavorits]=useState([]);
+  console.log(favorites, "favorites")
   useEffect(() => {
-    // setProductsList(allProducts.slice(0, 2));
-    // setAllFavorits(userFavorites);
-    console.log(userFavorites,"uuuuuuu")
-  }, []);
-
+    console.log(userFavorites, "userFavorites")
+  }, [userFavorites]);
   return (
     <div className="container px-0">
-     
-   
+
+
       <h2 className="text-2xl text-blackText font-bold mb-1">My Wish List</h2>
       {favorites.length ? (
         <>
@@ -37,8 +30,8 @@ const[ allFavorits,setAllFavorits]=useState([]);
         </p>
       )}
 
- 
-     
+
+
     </div>
   );
 }
