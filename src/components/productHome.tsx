@@ -108,7 +108,6 @@ const ProductHome = ({ titleProductCategory, swiperNum }: IProductHome) => {
     Array(ProductsHome.length).fill(false)
   );
 
-  const { user, setUser } = useContext(GlobalContext);
 
   const handleIncrement = (index: number) => {
     setCounts(counts.map((count, i) => (i === index ? count + 1 : count)));

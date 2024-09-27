@@ -10,7 +10,7 @@ import Image from "next/image";
 import { jwtDecode } from "jwt-decode";
 import { getToken } from "@/lib/auth";
 import Link from "next/link";
-import WishlistContext from "@/contexts/WishlistContext";
+import WishlistContext from "@/Context/WishlistContext";
 const ProductCardCol = ({
   product,
 }: {
@@ -22,48 +22,17 @@ const ProductCardCol = ({
   const [isAddingToWishlist, setIsAddingToWishlist] = useState(false);
   const [wishlistMessage, setWishlistMessage] = useState<string | null>(null);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
-  const { AllProducts } = useContext(GlobalContext);
   const { userFavorites, fetchFavorites } = useContext(WishlistContext);
   console.log(getToken(), "gggg")
 
   useEffect(() => {
 
-    const isInWishlist = Array.isArray(userFavorites) && userFavorites.map(
-      (item: any) => item.id === product.id ? setActiveHearts(true) : setActiveHearts(false)
-    );
+    if (Array.isArray(userFavorites)) {
+      const isInWishlist = userFavorites.some(item => item.id === product.id);
+      setActiveHearts(isInWishlist);
+    }
   }, [userFavorites, product.id]
-  );
-  // If the product is in the wishlist, set the heart as red (active)
-  // if (isInWishlist) {
-  //   setActiveHearts(true);
-  // } else {
-  //   setActiveHearts(false);
-  // }
-
-
-  // const fetchUserFavorites = async () => {
-  //   const token = getToken();
-  //   if (!token) return;
-
-  //   try {
-  //     const response = await fetch('http://alsanidi.metatesting.online/public/api/favorites', {
-  //       cache: 'no-cache',
-  //       headers: {
-  //         'Authorization': `Bearer ${token}`,
-  //         'X-LOCALE': 'en',
-  //       },
-  //     });
-
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       setUserFavorites(data.favorites); // Assuming the API returns an array of favorites
-  //     }
-  //   } catch (error) {
-  //     console.error('Error fetching updated wishlist:', error);
-  //   }
-  // };
-
-
+  )
 
   const handleAddToWishlist = async (productId: number) => {
     const token = getToken();

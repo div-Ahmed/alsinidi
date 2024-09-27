@@ -4,7 +4,7 @@ import LayoutContainer from "../app/layoutContainer";
 import { GlobalContextProvider } from '@/code/globalContext';
 import { ClerkProvider } from "@clerk/nextjs";
 import SessionWrapper from "@/components/SessionWrapper";
-import { WishlistContextProvider } from "@/contexts/WishlistContext";
+import { WishlistContextProvider } from "@/Context/WishlistContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",

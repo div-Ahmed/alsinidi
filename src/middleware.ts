@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
 
     // If there's no token, redirect to the sign-in page
     if (!userToken) {
-      const response = NextResponse.redirect(new URL(`/sign-in?redirect=${requestedPage}`, request.url));
+      const response = NextResponse.redirect(new URL(`/sign-in`, request.url));
       response.headers.set('Cache-Control', 'no-store');
       return response;
     }
@@ -30,7 +30,7 @@ export async function middleware(request: NextRequest) {
             }
         } catch (error) {
             // If refresh fails, redirect to the sign-in page
-            return NextResponse.redirect(new URL(`/sign-in?redirect=${requestedPage}`, request.url));
+            return NextResponse.redirect(new URL(`/sign-in`, request.url));
         }
     }
     // If the token is valid, proceed to the requested page

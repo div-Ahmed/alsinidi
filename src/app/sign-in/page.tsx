@@ -96,7 +96,7 @@ export default function SignIn() {
   }, [router, searchParams?.get('redirect')]);
   return (
     <main dir="ltr" >
-      {/* {isLoading && <div className="w-full h-screen flex justify-center items-center bg-red-400"><div className="w-10 h-10 bg-red-100 rounded-full animate-spin"></div></div>} */}
+      {isLoading && <div className="w-full h-screen flex justify-center items-center bg-red-400"><div className="w-10 h-10 bg-red-100 rounded-full animate-spin"></div></div>}
       <Toaster position="top-center" reverseOrder={false} toastOptions={{ duration: 2000 }} />
       <div className="flex flex-wrap">
         <div className="lg:basis-1/2 basis-full bg-bgBrimary lg:min-h-screen">

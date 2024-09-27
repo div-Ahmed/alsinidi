@@ -3,7 +3,7 @@
 import { useState, useEffect, useContext } from "react";
 import ProductCard from "@/components/productCard";
 import ProductCardCol from "@/components/productCardCol";
-import WishlistContext from "@/contexts/WishlistContext";
+import WishlistContext from "@/Context/WishlistContext";
 export default function WishListContent() {
   const { userFavorites } = useContext(WishlistContext);
   const favorites = userFavorites ?? [];
